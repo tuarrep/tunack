@@ -1,6 +1,6 @@
 # Tunack
 
-__T__CP and __U__DP __N__ginx __A__uto __C__onfig in __K__ubernetes
+Tcp and Udp Nginx Auto Config in Kubernetes
 Auto configuration service for TCP and UDP services for Kubernetes Nginx ingress manager
 
 ## Getting Started

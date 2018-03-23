@@ -1,0 +1,93 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: tunack-serviceaccount
+  namespace: ingress-nginx
+
+---
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tunack-clusterrole
+rules:
+  - apiGroups:
+    - ""
+    resources:
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tunack-clusterrole-binding
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: tunack-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: tunack-serviceaccount
+    namespace: ingress-nginx
+
+---
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tunack-role
+  namespace: ingress-nginx
+rules:
+  - apiGroups:
+    - ""
+    resources:
+      - configmaps
+    resourceNames:
+      - tcp-services
+      - udp-service
+    verbs:
+      - get
+      - update
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tunack-role-binding
+  namespace: ingress-nginx
+roleRef:
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+  name: tunack-role
+subjects:
+  - kind: ServiceAccount
+    name: tunack-serviceaccount
+    namespace: ingress-nginx
+
+---
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: tunack
+  namespace: ingress-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tunack
+  template:
+    metadata:
+      labels:
+        app: tunack
+    spec:
+      serviceAccountName: tunack-serviceaccount
+      containers:
+        - name: tunack
+          image: quay.io/dahus/tunack

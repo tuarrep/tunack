@@ -37,11 +37,11 @@ func syncConfigWithService(service *v1.Service, client *kubernetes.Clientset) {
 	}
 
 	for name, annotation := range service.Annotations {
-		if (!strings.Contains(name, "thunack.dahus.io/")) {
+		if (!strings.Contains(name, "tunack.dahus.io/")) {
 			continue
 		}
 		fmt.Printf(" Found annotation %s: %s\n", name, annotation)
-		annotationRegex := regexp.MustCompile(`thunack\.dahus\.io/(tcp|udp)-service-([0-9]{1,5})`)
+		annotationRegex := regexp.MustCompile(`tunack\.dahus\.io/(tcp|udp)-service-([0-9]{1,5})`)
 
 		matches := annotationRegex.FindAllStringSubmatch(name, -1)[0]
 		protocol := matches[1]

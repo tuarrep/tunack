@@ -25,7 +25,7 @@ func startServiceWatcher(client *kubernetes.Clientset) {
 		},
 		UpdateFunc: func(oldObj, newObj interface{}) {
 			service := newObj.(*v1.Service)
-			fmt.Printf("> Service changed %s", service.Name)
+			fmt.Printf("> Service changed %s\n", service.Name)
 			syncConfigWithService(service, client)
 		},
 	})

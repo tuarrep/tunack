@@ -1,6 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"regexp"
+	"strconv"
+	"strings"
+
+	"k8s.io/api/core/v1"
+	"k8s.io/client-go/kubernetes"
+	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
 // ServiceConfig Logical representation of TCP/UDP service proxy configuration
 // FQSN: Fully Qualified Service Name. Format: <namespace>/<name>
@@ -18,4 +27,72 @@ type ServiceConfig struct {
 // Format: <protocol>:<proxy port>@<FQSN>:<service port>
 func (sc ServiceConfig) RuleTag() string {
 	return fmt.Sprintf("%s:%s@%s:%s", sc.Protocol, sc.ProxyPort, sc.FQSN, sc.ServicePort)
+}
+
+// ParseConfigMap Returns all proxy configs from the config map
+func ParseConfigMap(protocol string, client *kubernetes.Clientset) []ServiceConfig {
+	configMapClient := client.CoreV1().ConfigMaps("ingress-nginx")
+	configMap, err := configMapClient.Get(fmt.Sprintf("%s-services", protocol), metaV1.GetOptions{})
+	if err != nil {
+		panic(err.Error())
+	}
+
+	configs := []ServiceConfig{}
+
+	for key, value := range configMap.Data {
+		config := ServiceConfig{
+			strings.Split(value, ":")[0],
+			"tcp",
+			strings.Split(value, ":")[1],
+			key,
+		}
+		configs = append(configs, config)
+	}
+
+	return configs
+}
+
+// GetFromService Returns all proxy configs of the given Service
+func GetFromService(service *v1.Service) []ServiceConfig {
+	configs := []ServiceConfig{}
+
+	for name, annotation := range service.Annotations {
+		if (!strings.Contains(name, "tunack.dahus.io/")) {
+			continue
+		}
+		fmt.Printf(" Found annotation %s: %s\n", name, annotation)
+		annotationRegex := regexp.MustCompile(`tunack\.dahus\.io/(tcp|udp)-service-([0-9]{1,5})`)
+
+		matches := annotationRegex.FindAllStringSubmatch(name, -1)[0]
+		protocol := matches[1]
+		proxyPort := matches[2]
+		servicePort := annotation
+
+		servicePortExists := false
+
+		for _, port := range service.Spec.Ports {
+			if (string(port.Protocol) == strings.ToUpper(protocol) && strconv.FormatInt(int64(port.Port), 10) == servicePort) {
+				servicePortExists = true
+				break
+			}
+		}
+
+		if (!servicePortExists) {
+			fmt.Println(" ! Service port found in annotion but not found in service spec! Ignoring")
+			continue
+		}
+
+		config := ServiceConfig{
+			fmt.Sprintf("%s/%s", service.Namespace, service.Name),
+			protocol,
+			servicePort,
+			proxyPort,
+		}
+
+		fmt.Printf(" * Service FQN: %s\n * Protocol: %s\n * Service port: %s\n * Proxy port: %s\n * Rule tag: %s\n", config.FQSN, config.Protocol, config.ServicePort, config.ProxyPort, config.RuleTag())
+
+		configs = append(configs, config)
+	}
+
+	return configs
 }

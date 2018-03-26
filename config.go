@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"k8s.io/api/core/v1"
-	"k8s.io/client-go/kubernetes"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
 )
 
 // ServiceConfig Logical representation of TCP/UDP service proxy configuration
@@ -57,7 +57,7 @@ func GetFromService(service *v1.Service) []ServiceConfig {
 	configs := []ServiceConfig{}
 
 	for name, annotation := range service.Annotations {
-		if (!strings.Contains(name, "tunack.dahus.io/")) {
+		if !strings.Contains(name, "tunack.dahus.io/") {
 			continue
 		}
 		fmt.Printf(" Found annotation %s: %s\n", name, annotation)
@@ -71,13 +71,13 @@ func GetFromService(service *v1.Service) []ServiceConfig {
 		servicePortExists := false
 
 		for _, port := range service.Spec.Ports {
-			if (string(port.Protocol) == strings.ToUpper(protocol) && strconv.FormatInt(int64(port.Port), 10) == servicePort) {
+			if string(port.Protocol) == strings.ToUpper(protocol) && strconv.FormatInt(int64(port.Port), 10) == servicePort {
 				servicePortExists = true
 				break
 			}
 		}
 
-		if (!servicePortExists) {
+		if !servicePortExists {
 			fmt.Println(" ! Service port found in annotion but not found in service spec! Ignoring")
 			continue
 		}

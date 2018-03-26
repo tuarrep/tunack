@@ -16,7 +16,7 @@ func main() {
 	var kubeConfig *string
 	var inCluster *bool
 	kubeConfig = flag.String("kubeConfig", filepath.Join(".", "config"), "(optional) absolute path to the kube config file")
-	inCluster = flag.Bool( "inCluster", false, "Use InCluster config")
+	inCluster = flag.Bool("inCluster", false, "Use InCluster config")
 
 	flag.Parse()
 

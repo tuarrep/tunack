@@ -18,7 +18,7 @@ func syncConfigWithService(service *v1.Service, client *kubernetes.Clientset) {
 	proxyConfigs := ParseConfigMap("tcp", client)
 	ourConfigs := GetFromService(service)
 
-	if (len(ourConfigs) == 0) {
+	if len(ourConfigs) == 0 {
 		return
 	}
 
@@ -27,7 +27,7 @@ func syncConfigWithService(service *v1.Service, client *kubernetes.Clientset) {
 
 	fmt.Println(" Synchronizing configs...")
 	for _, configToCheck := range proxyConfigs {
-		for _,config := range ourConfigs {
+		for _, config := range ourConfigs {
 			if configToCheck.ProxyPort == config.ProxyPort {
 				if configToCheck.RuleTag() == config.RuleTag() {
 					fmt.Printf(" * %s : Already in sync\n", config.RuleTag())
@@ -44,7 +44,6 @@ func syncConfigWithService(service *v1.Service, client *kubernetes.Clientset) {
 			}
 		}
 	}
-
 
 	fmt.Println(" Updating config map")
 

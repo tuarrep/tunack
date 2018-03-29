@@ -9,6 +9,7 @@ import (
 	"k8s.io/api/core/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/util/retry"
 )
 
 // ServiceConfig Logical representation of TCP/UDP service proxy configuration
@@ -95,4 +96,31 @@ func GetFromService(service *v1.Service) []ServiceConfig {
 	}
 
 	return configs
+}
+
+//UpdateConfigMap update configMap with service to add and to delete
+func UpdateConfigMap(toAdd []ServiceConfig, toDelete []ServiceConfig, client *kubernetes.Clientset) error {
+	return retry.RetryOnConflict(retry.DefaultRetry, func() error {
+		configMapClient := client.CoreV1().ConfigMaps("ingress-nginx")
+		updatedConfigMap, err := configMapClient.Get("tcp-services", metaV1.GetOptions{})
+		if err != nil {
+			panic(err.Error())
+		}
+
+		if updatedConfigMap.Data == nil {
+			updatedConfigMap.Data = map[string]string{}
+		}
+
+		for _, toDeleteConfig := range toDelete {
+			delete(updatedConfigMap.Data, toDeleteConfig.ProxyPort)
+		}
+
+		for _, toCreateConfig := range toAdd {
+			updatedConfigMap.Data[toCreateConfig.ProxyPort] = fmt.Sprintf("%s:%s", toCreateConfig.FQSN, toCreateConfig.ServicePort)
+		}
+
+		_, updateErr := configMapClient.Update(updatedConfigMap)
+
+		return updateErr
+	})
 }

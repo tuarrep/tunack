@@ -1,6 +1,6 @@
 FROM golang:1.10 as builder
 
-COPY ./*.go /go/src/dahus.io/tunack/
+COPY ./pkg/*.go /go/src/dahus.io/tunack/
 
 WORKDIR /go/src/dahus.io/tunack
 

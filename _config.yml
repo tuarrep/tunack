@@ -1,6 +1,6 @@
 name: tunack
 description: Kubernetes nginx ingress controller tcp/udp auto configuration
-baseurl: /tunack
+baseurl: /
 latest: "v0.1.0"
 versions:
   - "v0.1.0"

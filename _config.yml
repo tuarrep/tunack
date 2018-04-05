@@ -12,6 +12,7 @@ exclude:
   - gen_version.sh
 plugins:
   - jekyll-redirect-from
+  - jemoji
 
 contact:
   github: https://github.com/mafzst/tunack

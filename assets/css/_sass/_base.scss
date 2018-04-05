@@ -583,7 +583,7 @@ footer {
     }
 
   }
-  img{
+  img :not(.emoji){
     padding: 40px 0;
     max-width: 100%;
   }

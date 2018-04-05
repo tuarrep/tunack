@@ -23,7 +23,15 @@
           </ul>
         </li>
         {% endfor %}
-
+        <li><a href="">Versions</a>
+          <ul>
+            <li><a href="{{ master_url }}">master</a></li>
+            {% for version in site.versions %}
+            {% assign new_version = version | prepend: '/' | append: '/' %}
+            <li><a href="{{ page.url | replace: original_version, new_version | relative_url }}">{{ version }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

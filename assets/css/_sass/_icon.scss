@@ -1,0 +1,38 @@
+@mixin icon($name, $width,$height){
+  background: url('../images/icon/'+$name+'.png');
+  background-repeat:no-repeat;
+  display: inline-block;
+  width: $width+px;
+  height: $height+px;
+}
+
+.icon-right{
+  @include icon(icon-right, 35,35);
+  vertical-align: middle;
+  margin-left: 40px;
+}
+.icon-git{
+   @include icon(icon-git, 25,25);
+  vertical-align: middle;
+  padding-right: 30px;
+ }
+.icon-pages{
+  @include icon(icon-pages, 40,48);
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.icon-envelope{
+  @include icon(icon-envelope, 64,64);
+}
+.icon-forum{
+  @include icon(icon-forum, 64,60);
+}
+.icon-folder{
+  @include icon(icon-folder, 64,58);
+}
+.icon-info{
+  @include icon(icon-info, 47, 47);
+}
+.icon-adn{
+  @include icon(icon-adn, 22, 24);
+}

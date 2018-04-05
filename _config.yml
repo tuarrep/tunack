@@ -1,0 +1,39 @@
+name: tunack
+description: Kubernetes nginx ingress controller tcp/udp auto configuration
+baseurl: /tunack
+latest: "v0.1.0"
+versions:
+  - "v0.1.0"
+versioning: true
+
+logo: assets/img/logo.svg
+
+exclude:
+  - gen_version.sh
+plugins:
+  - jekyll-redirect-from
+
+contact:
+  github: https://github.com/mafzst/tunack
+
+defaults:
+  - scope:
+      path: "master"
+    values:
+      version: "master"
+      gh: https://github.com/mafzst/tunack/tree/master
+  - scope:
+      path: "v0.1.0"
+    values:
+      version: "v0.1.0"
+      gh: https://github.com/mafzst/tunack/tree/v0.1.0
+
+theme: jekyll-theme-minimal
+sass:
+  sass_dir: ./assets/css/_sass
+uncss:
+  stylesheets:
+    - assets/css/style.css
+  files:
+    - "**/*.html"
+  compress: true

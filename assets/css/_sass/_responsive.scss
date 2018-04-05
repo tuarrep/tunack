@@ -1,0 +1,70 @@
+/* = Responsive
+-------------------------------------------------------------- */
+
+/* Custom, iPhone Retina */
+@media (max-width : 768px) {
+  .brand {
+    padding-left: 15px;
+  }
+  .features{
+    padding: 35px 0;
+  }
+
+  footer{
+    text-align: center;
+    .footer-links{
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .copyright {
+      float: none;
+    }
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media (max-width: 1024px) {
+  .call-to-action{
+    text-align: center;
+    .btn-action{
+      margin-top: 0;
+      float: none;
+    }
+  }
+
+  .single-masthead{
+    .btn-hero{
+      margin: 24px auto 0;
+      float: none;
+    }
+  }
+
+}
+
+  @media all and (max-width: 1024px) and (min-width: 768px) {
+  footer{
+    text-align: center;
+    .footer-links{
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .copyright {
+      float: left;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+  .topics-list{
+    padding:5px 0;
+  }
+
+}

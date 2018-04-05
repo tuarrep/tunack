@@ -1,0 +1,10 @@
+/* =Transition
+-------------------------------------------------------------- */
+// transition: [transition-property] [transition-duration] [transition-timing-function] [transition-delay];
+
+@mixin bg-ease-out($duration, $delay){
+  -webkit-transition: background-color $duration+ms ease-out $delay+s;
+  -moz-transition: background-color $duration+ms ease-out $delay+s;
+  -o-transition: background-color $duration+ms ease-out $delay+s;
+  transition: background-color $duration+ms ease-out $delay+s;
+}

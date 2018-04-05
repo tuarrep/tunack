@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="{{ site.lang | default: " en-US" }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    {% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
+          integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+{% include header.html %}
+<main class="content-wrapper">
+    <div class="container">
+        <div class="col-lg-8">
+            <article class="post">
+                {{ content }}
+            </article>
+        </div>
+        <div class="col-lg-4">
+            {% include nav.html %}
+        </div>
+    </div>
+</main>
+    {% include version-warning.html %}
+    {% include edit-this-page.html %}
+
+</body>
+</html>

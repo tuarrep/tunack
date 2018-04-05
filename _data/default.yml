@@ -1,0 +1,16 @@
+toc:
+  - title: User Guide
+    subfolderitems:
+      - page: Getting started
+        url: /
+  - title: Customization
+    subfolderitems:
+      - page: Running in a different namespace
+        url: /namespace
+  - title: Reference
+    subfolderitems:
+      - page: CLI reference
+        url: /cli-reference
+      - page: Sample YAML files
+        url: /deploy
+        github: true

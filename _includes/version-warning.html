@@ -1,19 +1,23 @@
+{% assign original_version = page.version | prepend: '/' %}
+{% assign master_url = page.url | replace: original_version, '/master/' | relative_url %}
+{% assign latest_url = page.url | replace: original_version, site.latest | relative_url %}
+
 {% if page.version == 'master' %}
-  <div class="version-warning">
+<div class="alert alert-danger" role="alert">
     <p>
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-    This is the documentation for the latest development version of Ark. Both code and docs may be
-    unstable, and these docs are not guaranteed to be up to date or correct. See the
-    <a href="{{latest_url}}">latest version</a>.
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        This is the documentation for the latest development version of tunack. Both code and docs may be
+        unstable, and these docs are not guaranteed to be up to date or correct. See the
+        <a href="{{latest_url}}">latest version</a>.
     </p>
-  </div>
+</div>
 {% elsif page.version != site.latest %}
-  <div class="version-warning">
+<div class="alert alert-warning" role="alert">
     <p>
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-    Documentation for version {{ page.version }} is no longer actively maintained.
-    The version you are currently viewing is a static snapshot.
-    For up-to-date documentation, see the <a href="{{latest_url}}">latest version</a>.
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        Documentation for version {{ page.version }} is no longer actively maintained.
+        The version you are currently viewing is a static snapshot.
+        For up-to-date documentation, see the <a href="{{latest_url}}">latest version</a>.
     </p>
-  </div>
+</div>
 {% endif %}

@@ -1,4 +1,6 @@
 # Tunack
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdahus%2Ftunack.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdahus%2Ftunack?ref=badge_shield)
+
 
 :warning: Tunack is under heavy development, __NOT SUITABLE FOR PRODUCTION__ (or at your own risks). PR are warmly welcomed
 
@@ -72,6 +74,9 @@ See also the list of [contributors](https://github.com/mafzst/tunack/contributor
 ## License
 
 This project is licensed under the GNU GPLv3 License - see the [LICENSE](LICENSE) file for details
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdahus%2Ftunack.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdahus%2Ftunack?ref=badge_large)
 
 ## Acknowledgments
 

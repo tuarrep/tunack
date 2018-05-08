@@ -73,10 +73,11 @@ See also the list of [contributors](https://github.com/mafzst/tunack/contributor
 
 ## License
 
-This project is licensed under the GNU GPLv3 License - see the [LICENSE](LICENSE) file for details
-
-
+This project is licensed under the GNU GPLv3 License - see the [LICENSE](LICENSE) file for details  
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdahus%2Ftunack.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdahus%2Ftunack?ref=badge_large)
+
+## third-party softwares
+See [licences scan report](https://app.fossa.io/reports/e06d0781-a1f6-4321-8db6-0321f5df996c)
 
 ## Acknowledgments
 
